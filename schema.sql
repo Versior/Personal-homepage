@@ -99,5 +99,5 @@ CREATE TABLE IF NOT EXISTS `admin_users` (
 -- Dumping data for table `admin_users`
 --
 INSERT OR IGNORE INTO `admin_users` (`username`, `password`) VALUES
-("admin", "$2y$10$ugJ5Bm0Yruo0CVKU2i2u.edgZqN5AMJTyH0mkdbmtl7HpDzaWdyr.");
+("", "");
 
