@@ -1,0 +1,931 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>遇事开心 – 2025年夏末</title>
+    <link rel="icon" type="image/x-icon" id="siteIcon" href="assets/avatar.png">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Microsoft YaHei', Arial, sans-serif;
+            overflow-x: hidden;
+            background: #000;
+        }
+
+        /* 视频背景 */
+        .video-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            object-fit: cover;
+        }
+
+        /* 毛玻璃遮罩 */
+        .glass-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            z-index: 0;
+        }
+
+        /* 主容器 */
+        .container {
+            position: relative;
+            z-index: 1;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        /* 访客提示弹窗 */
+        .visitor-popup {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 15px;
+            padding: 15px 20px;
+            color: #ffffff;
+            font-size: 14px;
+            font-weight: bold;
+            z-index: 1000;
+            animation: slideIn 0.5s ease-out;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        /* 头部区域 */
+        .header {
+            text-align: center;
+            padding: 40px 0;
+        }
+
+        .avatar {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            border: 4px solid rgba(255, 255, 255, 0.3);
+            margin: 0 auto 20px;
+            display: block;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease;
+        }
+
+        .avatar:hover {
+            transform: scale(1.05);
+        }
+
+        .status {
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 25px;
+            padding: 10px 20px;
+            color: #ffffff;
+            font-size: 16px;
+            font-weight: bold;
+            display: block;
+            margin: 20px auto 10px auto;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8), 0 0 8px rgba(0, 0, 0, 0.6);
+            max-width: fit-content;
+        }
+
+        .time-display {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 15px;
+            padding: 15px 25px;
+            color: #ffffff;
+            font-size: 18px;
+            font-weight: bold;
+            display: inline-block;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+            font-family: 'Courier New', monospace;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8), 0 0 8px rgba(0, 0, 0, 0.6);
+        }
+
+        /* 主要内容区域 */
+        .main-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 25px;
+            padding: 20px;
+        }
+
+        .section {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
+            padding: 25px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .section:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
+        }
+
+        .section-title {
+            color: #ffffff;
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            text-align: center;
+            border-bottom: 2px solid rgba(255, 255, 255, 0.3);
+            padding-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8), 0 0 8px rgba(0, 0, 0, 0.6);
+        }
+
+         /* 热搜榜样式 */
+        #hotSearchList {
+            max-height: 400px; /* 设置最大高度 */
+            overflow-y: auto; /* 启用垂直滚动条 */
+            padding-right: 10px; /* 防止滚动条遮挡内容 */
+        }
+
+        /* 自定义滚动条样式 */
+        #hotSearchList::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        #hotSearchList::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+        }
+
+        #hotSearchList::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 10px;
+        }
+
+        #hotSearchList::-webkit-scrollbar-thumb:hover {
+            background: rgba(255, 255, 255, 0.5);
+        }
+
+        .hot-item {
+            display: flex;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            color: #ffffff;
+            font-weight: 500;
+            text-decoration: none;
+            transition: background 0.3s ease;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
+        }
+        .hot-item:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+        }
+
+        .hot-rank {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, #ff6b6b, #ff8e8e);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin-right: 15px;
+            font-size: 14px;
+        }
+
+        .hot-rank.top3 {
+            background: linear-gradient(45deg, #ffd700, #ffed4e);
+            color: #333; /* 保持深色，因为背景是浅色 */
+        }
+
+        /* 废话记录样式 */
+        .post-item {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            padding: 15px;
+            margin-bottom: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: background 0.3s ease;
+        }
+
+        #postsList {
+            max-height: 400px; /* 设置最大高度 */
+            overflow-y: auto; /* 启用垂直滚动条 */
+            padding-right: 10px; /* 防止滚动条遮挡内容 */
+        }
+
+        /* 自定义滚动条样式 */
+        #postsList::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        #postsList::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+        }
+
+        #postsList::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 10px;
+        }
+
+        #postsList::-webkit-scrollbar-thumb:hover {
+            background: rgba(255, 255, 255, 0.5);
+        }
+
+        .post-item:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .post-title {
+            color: #ffffff;
+            font-size: 16px;
+            font-weight: bold;
+            margin-bottom: 8px;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
+        }
+
+        .post-content {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 14px;
+            line-height: 1.5;
+            margin-bottom: 10px;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.6);
+        }
+
+        .post-actions {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+
+        .action-btn {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 20px;
+            padding: 5px 12px;
+            color: white;
+            font-size: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .action-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: scale(1.05);
+        }
+
+        /* 留言板样式 */
+        .message-form {
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            font-size: 14px;
+            backdrop-filter: blur(10px);
+        }
+
+        .form-input::placeholder {
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .form-textarea {
+            min-height: 80px;
+            resize: vertical;
+        }
+
+        .submit-btn {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            border: none;
+            border-radius: 8px;
+            padding: 12px 24px;
+            color: white;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 16px rgba(102, 126, 234, 0.4);
+        }
+
+        .message-item {
+            display: flex;
+            gap: 12px;
+            padding: 15px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        #messagesList {
+            max-height: 400px; /* 设置最大高度 */
+            overflow-y: auto; /* 启用垂直滚动条 */
+            padding-right: 10px; /* 防止滚动条遮挡内容 */
+        }
+
+        /* 自定义滚动条样式 */
+        #messagesList::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        #messagesList::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+        }
+
+        #messagesList::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 10px;
+        }
+
+        #messagesList::-webkit-scrollbar-thumb:hover {
+            background: rgba(255, 255, 255, 0.5);
+        }
+
+        .message-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .message-content {
+            flex: 1;
+        }
+
+        .message-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 5px;
+        }
+
+        .message-nickname {
+            color: #ffffff;
+            font-weight: bold;
+            font-size: 14px;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
+        }
+
+        .message-info {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 12px;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.6);
+        }
+
+        .message-text {
+            color: rgba(255, 255, 255, 0.95);
+            font-size: 14px;
+            line-height: 1.5;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.6);
+        }
+
+        /* 友链样式 */
+        .friend-links {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+            gap: 15px;
+        }
+
+        .friend-link {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            text-decoration: none;
+            color: #ffffff;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
+        }
+
+        .friend-link:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateY(-3px);
+        }
+
+        .friend-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            margin-bottom: 8px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .friend-name {
+            font-size: 12px;
+            text-align: center;
+        }
+
+        /* 底部样式 */
+        .footer {
+            text-align: center;
+            padding: 30px 20px;
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 14px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            margin-top: 40px;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.6);
+        }
+
+        .footer-info {
+            margin-bottom: 10px;
+        }
+
+        .runtime {
+            font-family: 'Courier New', monospace;
+            color: rgba(255, 255, 255, 0.95);
+            font-weight: bold;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
+        }
+
+        /* 响应式设计 */
+        @media (max-width: 1024px) {
+            .main-content {
+                grid-template-columns: 1fr;
+                gap: 20px;
+                padding: 15px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .main-content {
+                grid-template-columns: 1fr;
+                gap: 20px;
+                padding: 10px;
+            }
+
+            .container {
+                padding: 10px;
+            }
+
+            .visitor-popup {
+                top: 10px;
+                right: 10px;
+                font-size: 12px;
+                padding: 10px 15px;
+            }
+
+            .avatar {
+                width: 100px;
+                height: 100px;
+            }
+
+            .time-display {
+                font-size: 16px;
+                padding: 12px 20px;
+            }
+        }
+
+        /* 加载动画 */
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top-color: white;
+            animation: spin 1s ease-in-out infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <!-- 视频背景 -->
+    <video class="video-background" autoplay muted loop>
+        <source src="assets/background.webm" type="video/webm">
+        <source src="assets/background.mp4" type="video/mp4">
+    </video>
+
+    <!-- 毛玻璃遮罩 -->
+    <div class="glass-overlay"></div>
+
+    <!-- 访客弹窗 -->
+    <div class="visitor-popup" id="visitorPopup" style="display: none;">
+        <div>您是第 <span id="visitorRank">-</span> 位访客</div>
+        <div>总访客数: <span id="totalVisitors">-</span></div>
+    </div>
+
+    <div class="container">
+        <!-- 头部区域 -->
+        <div class="header">
+            <img src="assets/avatar.png" alt="头像" class="avatar" id="avatar">
+            <div class="status" id="status">😴 睡觉中</div>
+            <div class="time-display" id="timeDisplay">
+                2025年06月28日 难过星期日 00:00:00
+            </div>
+        </div>
+
+        <!-- 主要内容 -->
+        <div class="main-content">
+            <!-- 热搜榜 -->
+            <div class="section">
+                <div class="section-title">🔥 热搜榜</div>
+                <div id="hotSearchList">
+                    <div class="loading"></div>
+                </div>
+            </div>
+
+            <!-- 废话记录仪 -->
+            <div class="section">
+                <div class="section-title">📝 废话记录仪</div>
+                <div id="postsList">
+                    <div class="loading"></div>
+                </div>
+            </div>
+
+            <!-- 留言板 -->
+            <div class="section">
+                <div class="section-title">💬 留言板</div>
+                <div class="message-form">
+                    <div class="form-group">
+                        <input type="text" class="form-input" id="qqInput" placeholder="请输入您的QQ号">
+                    </div>
+                    <div class="form-group">
+                        <textarea class="form-input form-textarea" id="messageInput" placeholder="说点什么吧..."></textarea>
+                    </div>
+                    <button class="submit-btn" onclick="submitMessage()">发送留言</button>
+                </div>
+                <div id="messagesList">
+                    <div class="loading"></div>
+                </div>
+            </div>
+
+            <!-- 友链和博客 -->
+            <div class="section">
+                <div class="section-title">🔗 友链 & 博客</div>
+                <div class="friend-links" id="friendLinks">
+                    <div class="loading"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 底部 -->
+        <div class="footer">
+            <div class="footer-info">网站的开发和设计：遇事开心</div>
+            <div class="footer-info">
+                网站运行时间：<span class="runtime" id="runtime">0天0小时0分钟0秒</span>
+            </div>
+            <div class="footer-info">
+                今日访客：<span id="todayVisitors">-</span> | 总访客：<span id="totalVisitorsFooter">-</span>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 全局变量
+        let siteConfig = {};
+        let startTime = new Date('2025-06-28 00:00:00').getTime();
+
+        // 初始化
+        document.addEventListener('DOMContentLoaded', function() {
+            loadSiteConfig();
+            loadVisitorInfo();
+            loadHotSearch();
+            loadPosts();
+            loadMessages();
+            loadFriendLinks();
+            loadVisitorStats();
+            
+            // 启动定时器
+            setInterval(updateTime, 1000);
+            setInterval(updateRuntime, 1000);
+            setInterval(loadVisitorStats, 30000); // 30秒更新一次访客统计
+        });
+
+        // 加载网站配置
+        async function loadSiteConfig() {
+            try {
+                const response = await fetch('api.php?action=site_config');
+                const config = await response.json();
+                siteConfig = config;
+                
+                // 更新页面标题
+                if (config.site_title) {
+                    document.title = config.site_title;
+                }
+                
+                // 更新网站图标
+                if (config.site_icon) {
+                    document.getElementById("siteIcon").href = config.site_icon;
+                }
+                
+                // 更新头像
+                if (config.avatar_url) {
+                    document.getElementById("avatar").src = config.avatar_url;
+                }
+                
+                // 更新状态
+                document.getElementById('status').textContent = config.current_status;
+                
+                updateTime();
+            } catch (error) {
+                console.error('加载网站配置失败:', error);
+            }
+        }
+
+        // 加载访客信息
+        async function loadVisitorInfo() {
+            try {
+                const response = await fetch('api.php?action=visitor_info');
+                const data = await response.json();
+                
+                if (data.rank && data.total) {
+                    document.getElementById('visitorRank').textContent = data.rank;
+                    document.getElementById('totalVisitors').textContent = data.total;
+                    
+                    // 显示弹窗
+                    const popup = document.getElementById('visitorPopup');
+                    popup.style.display = 'block';
+                    
+                    // 5秒后隐藏弹窗
+                    setTimeout(() => {
+                        popup.style.display = 'none';
+                    }, 5000);
+                }
+            } catch (error) {
+                console.error('加载访客信息失败:', error);
+                // 即使失败也显示弹窗，使用默认值
+                document.getElementById('visitorRank').textContent = '1';
+                document.getElementById('totalVisitors').textContent = '1';
+                document.getElementById('visitorPopup').style.display = 'block';
+                
+                setTimeout(() => {
+                    document.getElementById('visitorPopup').style.display = 'none';
+                }, 5000);
+            }
+        }
+
+        // 加载热搜
+        async function loadHotSearch() {
+            try {
+                const response = await fetch('api.php?action=hot_search');
+                const data = await response.json();
+                
+                const container = document.getElementById('hotSearchList');
+                if (data.data && data.data.length > 0) {
+                    container.innerHTML = data.data.slice(0, 10).map((item, index) => `
+                        <a href="${item.url || '#'}" class="hot-item" target="_blank">
+                            <div class="hot-rank ${index < 3 ? 'top3' : ''}">${index + 1}</div>
+                            <div>${item.title || item.name || item}</div>
+                        </a>
+                    `).join('');
+                } else {
+                    container.innerHTML = '<div style="color: rgba(255,255,255,0.6); text-align: center;">暂无热搜数据</div>';
+                }
+            } catch (error) {
+                console.error('加载热搜失败:', error);
+                document.getElementById('hotSearchList').innerHTML = '<div style="color: rgba(255,255,255,0.6); text-align: center;">加载失败</div>';
+            }
+        }
+
+        // 加载文章
+        async function loadPosts() {
+            try {
+                const response = await fetch('api.php?action=posts');
+                const posts = await response.json();
+                
+                const container = document.getElementById('postsList');
+                if (posts.length > 0) {
+                    container.innerHTML = posts.slice(0, 5).map(post => `
+                        <div class="post-item">
+                            <div class="post-title">${post.title}</div>
+                            <div class="post-content">${post.content.substring(0, 100)}${post.content.length > 100 ? '...' : ''}</div>
+                            <div class="post-actions">
+                                <button class="action-btn" onclick="likePost(${post.id})">
+                                    👍 ${post.likes}
+                                </button>
+                                <button class="action-btn" onclick="viewPost(${post.id})">
+                                    💬 评论
+                                </button>
+                                <span style="color: rgba(255,255,255,0.6); font-size: 12px;">
+                                    ${new Date(post.created_at).toLocaleDateString()}
+                                </span>
+                            </div>
+                        </div>
+                    `).join('');
+                } else {
+                    container.innerHTML = '<div style="color: rgba(255,255,255,0.6); text-align: center;">暂无文章</div>';
+                }
+            } catch (error) {
+                console.error('加载文章失败:', error);
+                document.getElementById('postsList').innerHTML = '<div style="color: rgba(255,255,255,0.6); text-align: center;">加载失败</div>';
+            }
+        }
+
+        // 加载留言
+        async function loadMessages() {
+            try {
+                const response = await fetch('api.php?action=messages');
+                const messages = await response.json();
+                
+                const container = document.getElementById('messagesList');
+                if (messages.length > 0) {
+                    container.innerHTML = messages.slice(0, 10).map(message => `
+                        <div class="message-item">
+                            <img src="${message.avatar_url}" alt="头像" class="message-avatar">
+                            <div class="message-content">
+                                <div class="message-header">
+                                    <span class="message-nickname">${message.nickname}</span>
+                                    <span class="message-info">${message.device} · ${message.browser} · ${message.location}</span>
+                                </div>
+                                <div class="message-text">${message.content}</div>
+                                <div class="message-info" style="margin-top: 5px;">
+                                    ${new Date(message.created_at).toLocaleString()}
+                                </div>
+                            </div>
+                        </div>
+                    `).join('');
+                } else {
+                    container.innerHTML = '<div style="color: rgba(255,255,255,0.6); text-align: center;">暂无留言</div>';
+                }
+            } catch (error) {
+                console.error('加载留言失败:', error);
+                document.getElementById('messagesList').innerHTML = '<div style="color: rgba(255,255,255,0.6); text-align: center;">加载失败</div>';
+            }
+        }
+
+        // 加载友链
+        async function loadFriendLinks() {
+            try {
+                const response = await fetch('api.php?action=friend_links');
+                const links = await response.json();
+                
+                const container = document.getElementById('friendLinks');
+                if (links.length > 0) {
+                    container.innerHTML = links.map(link => `
+                        <a href="${link.url}" class="friend-link" target="_blank">
+                            <img src="${link.avatar || 'assets/default-avatar.png'}" alt="${link.name}" class="friend-avatar">
+                            <div class="friend-name">${link.name}</div>
+                        </a>
+                    `).join('');
+                } else {
+                    container.innerHTML = '<div style="color: rgba(255,255,255,0.6); text-align: center;">暂无友链</div>';
+                }
+            } catch (error) {
+                console.error('加载友链失败:', error);
+                document.getElementById('friendLinks').innerHTML = '<div style="color: rgba(255,255,255,0.6); text-align: center;">加载失败</div>';
+            }
+        }
+
+        // 加载访客统计
+        async function loadVisitorStats() {
+            try {
+                const response = await fetch('api.php?action=visitor_stats');
+                const stats = await response.json();
+                
+                document.getElementById('todayVisitors').textContent = stats.today;
+                document.getElementById('totalVisitorsFooter').textContent = stats.total;
+            } catch (error) {
+                console.error('加载访客统计失败:', error);
+            }
+        }
+
+        // 更新时间显示
+        function updateTime() {
+            if (siteConfig.current_time) {
+                const time = siteConfig.current_time;
+                const timeStr = `${time.year}年${time.month.padStart(2, '0')}月${time.day.padStart(2, '0')}日 ${time.weekday} ${time.hour.padStart(2, '0')}:${time.minute.padStart(2, '0')}:${time.second.padStart(2, '0')}`;
+                document.getElementById('timeDisplay').textContent = timeStr;
+            } else {
+                const now = new Date();
+                const weekdays = ['难过星期日', '黑色星期一', '痛苦星期二', '焦虑星期三', '疯狂星期四', '快乐星期五', '愉悦星期六'];
+                const timeStr = `${now.getFullYear()}年${(now.getMonth() + 1).toString().padStart(2, '0')}月${now.getDate().toString().padStart(2, '0')}日 ${weekdays[now.getDay()]} ${now.getHours().toString().padStart(2, '0')}:${now.getMinutes().toString().padStart(2, '0')}:${now.getSeconds().toString().padStart(2, '0')}`;
+                document.getElementById('timeDisplay').textContent = timeStr;
+            }
+        }
+
+        // 更新运行时间
+        function updateRuntime() {
+            const now = new Date().getTime();
+            const diff = now - startTime;
+            
+            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+            
+            document.getElementById('runtime').textContent = `${days}天${hours}小时${minutes}分钟${seconds}秒`;
+        }
+
+        // 点赞文章
+        async function likePost(postId) {
+            try {
+                const formData = new FormData();
+                formData.append('id', postId);
+                
+                const response = await fetch('api.php?action=like_post', {
+                    method: 'POST',
+                    body: formData
+                });
+                
+                const result = await response.json();
+                if (result.success) {
+                    loadPosts(); // 重新加载文章列表
+                } else {
+                    alert('点赞失败');
+                }
+            } catch (error) {
+                console.error('点赞失败:', error);
+                alert('点赞失败');
+            }
+        }
+
+        // 查看文章详情
+        function viewPost(postId) {
+            // 这里可以实现文章详情弹窗或跳转
+            alert('文章详情功能待实现');
+        }
+
+        // 提交留言
+        async function submitMessage() {
+            const qq = document.getElementById('qqInput').value.trim();
+            const content = document.getElementById('messageInput').value.trim();
+            
+            if (!qq || !content) {
+                alert('请填写QQ号和留言内容');
+                return;
+            }
+            
+            if (!/^\d{5,11}$/.test(qq)) {
+                alert('请输入有效的QQ号码');
+                return;
+            }
+
+            const formData = new FormData();
+            formData.append('qq', qq);
+            formData.append('content', content);
+
+            try {
+                const response = await fetch('api.php?action=add_message', {
+                    method: 'POST',
+                    body: formData
+                });
+                const result = await response.json();
+                if (result.success) {
+                    alert('留言成功！');
+                    document.getElementById('qqInput').value = '';
+                    document.getElementById('messageInput').value = '';
+                    loadMessages(); // 重新加载留言列表
+                } else {
+                    alert('留言失败: ' + (result.error || '未知错误'));
+                }
+            } catch (error) {
+                console.error('提交留言失败:', error);
+                alert('提交留言失败，请检查网络或稍后再试。');
+            }
+        }
+
+    </script>
+</body>
+</html>
+
+
